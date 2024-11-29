@@ -8,42 +8,43 @@
             </div>
 
 
-            <div class="form__input">
-                <label>Регион</label>
+            <div class="form__input" :class="{ error: $page.props.errors.region }" >
+                <label>Регион <span>*</span></label>
                 <select  v-model="form.region" name="regions" size="1" id="regions">
-                    <option value="javascript">JavaScript</option>
+                    <option :value="region.id" v-for="region in regions">{{region.name}}</option>
                 </select>
             </div>
 
-            <div class="form__input">
-                <label>Населённый пункт</label>
+            <div class="form__input" :class="{ error: $page.props.errors.town }" >
+                <label>Населённый пункт <span>*</span></label>
                 <select v-model="form.town" name="towns" size="1" id="towns">
-                    <option value="javascript">JavaScript</option>
+                    <option :value="town.id" v-for="town in towns">{{ town.name }}</option>
                 </select>
             </div>
 
-            <div class="form__input">
-                <label>Улица</label>
+            <div  class="form__input" :class="{ error: $page.props.errors.street }">
+                <label>Улица <span>*</span></label>
                 <select v-model="form.street" name="streets" size="1" id="streets">
-                    <option value="javascript">JavaScript</option>
+                    <option :value="street.id" v-for="street in streets" >{{ street.name }}</option>
                 </select>
             </div>
 
-            <div class="form__input">
-                <label>Тип здания</label>
+            <div class="form__input" :class="{ error: $page.props.errors.buildingType }" >
+                <label>Тип здания <span>*</span></label>
                 <select v-model="form.buildingType" name="building-types" size="1" id="building-types">
-                    <option value="javascript">JavaScript</option>
+                    <option :value="buildingType.id" v-for="buildingType in buildingTypes">{{buildingType.name}}</option>
                 </select>
             </div>
 
-            <div class="form__input">
-                <label for="house">Дом</label>
-                <input v-model="form.house" name="house" id="house" />
+            <div class="form__input" :class="{ error: $page.props.errors.house }" >
+                <label for="house">Дом <span>*</span></label>
+                <input  maxlength="3" v-model="form.house" name="house" id="house" />
+                <p v-if="$page.props.errors.house">{{$page.props.errors.house}}</p>
             </div>
 
             <div class="form__input">
                 <label for="building">Корпус</label>
-                <input v-model="form.building" name="building" id="building" />
+                <input maxlength="3" v-model="form.building" name="building" id="building" />
             </div>
 
         </div>
@@ -55,7 +56,9 @@
                 <p>Выберите объект на карте:</p>
             </div>
             <div id="map"></div>
+            <p v-if="$page.props.errors.coordinates">{{$page.props.errors.coordinates}}</p>
         </div>
+
 
         <button class="button" type="submit"> Опубликовать </button>
 
@@ -66,6 +69,12 @@
 import { onMounted } from "vue";
 import { useForm } from "@inertiajs/vue3";
 
+defineProps({
+    regions: Array,
+    towns: Array,
+    streets: Array,
+    buildingTypes: Array
+});
 
 // 2gis
 onMounted(() => {
@@ -140,6 +149,9 @@ const form = useForm({
         width: fit-content;
         label {
             font-size: 14px;
+            span {
+                color:red;
+            }
         }
 
         select {
@@ -172,5 +184,21 @@ const form = useForm({
     margin-top: 20px;
     width: 800px;
     height: 500px;
+}
+
+.error {
+    color: red;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 </style>

@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->string('building')->nullable();
             $table->decimal('longitude', 10, 7);
             $table->decimal('latitude', 10, 7);
-            $table->enum('status', ['on_moderation', 'published']);
+            $table->enum('status', ['На модерации', 'Опубликован']);
             $table->timestamps();
         });
     }

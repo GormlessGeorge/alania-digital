@@ -15,7 +15,7 @@ class Post extends Model
         return $this->belongsTo(Region::class);
     }
 
-    public function locality()
+    public function town()
     {
         return $this->belongsTo(Town::class);
     }
@@ -25,7 +25,7 @@ class Post extends Model
         return $this->belongsTo(Street::class);
     }
 
-    public function buildingType()
+    public function building_type()
     {
         return $this->belongsTo(BuildingType::class);
     }

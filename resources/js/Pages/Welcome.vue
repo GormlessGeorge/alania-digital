@@ -28,7 +28,7 @@
         <div class="container">
             <main class="main">
                 <h1 class="main__title">Создание публикации</h1>
-                <Form/>
+                <Form :regions="regions" :towns="towns" :streets="streets" :buildingTypes="buildingTypes"/>
             </main>
         </div>
     </section>
@@ -40,15 +40,14 @@ import Form from "@/Components/Form.vue";
 
 defineProps({
     canLogin: Boolean,
-    canRegister: Boolean
+    canRegister: Boolean,
+    regions: Array,
+    towns: Array,
+    streets: Array,
+    buildingTypes: Array
 });
 
-// function handleImageError() {
-//     document.getElementById('screenshot-container')?.classList.add('!hidden');
-//     document.getElementById('docs-card')?.classList.add('!row-span-1');
-//     document.getElementById('docs-card-content')?.classList.add('!flex-row');
-//     document.getElementById('background')?.classList.add('!hidden');
-// }
+
 </script>
 
 <style scoped lang="scss">
@@ -63,6 +62,7 @@ defineProps({
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px rgb(241, 241, 241);
+    background-color: #f3f3f3;
 
     &__nav-link {
         font-size: 16px;

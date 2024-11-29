@@ -2,8 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
+use App\Models\BuildingType;
 use App\Models\Post;
+use App\Models\Region;
+use App\Models\Street;
+use App\Models\Town;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
+use Inertia\Inertia;
+use App\Services\PostService;
 
 class PostController extends Controller
 {
@@ -12,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('Moderator/Dashboard',
+            ['posts' => Post::with(['region', 'town', 'street', 'building_type'])->get()]);
     }
 
     /**
@@ -20,15 +29,27 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Welcome', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'regions' => Region::all(),
+            'towns' => Town::all(),
+            'streets' => Street::all(),
+            'buildingTypes' => BuildingType::all()
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+
+        $postService = new PostService();
+        $postService->store($request->validated());
+//
+        return redirect()->back()->with('success', 'Post created successfully');
+//        dd($request);
     }
 
     /**
@@ -61,5 +82,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+    }
+
+    public function publish($id) {
+        $post = Post::findOrFail($id);
+        $post->status = 'Опубликован';
+        $post->save();
     }
 }

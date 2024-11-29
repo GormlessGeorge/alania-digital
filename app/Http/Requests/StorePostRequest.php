@@ -25,7 +25,7 @@ class StorePostRequest extends FormRequest
             'region' => 'required',
             'town' => 'required',
             'street' => 'required',
-            'building_type' => 'required',
+            'buildingType' => 'required',
             'house' => ['required', 'integer'],
             'coordinates' => ['required']
         ];
@@ -37,7 +37,7 @@ class StorePostRequest extends FormRequest
             'region.required' => "Выберите одно из значений",
             'town.required' => "Выберите одно из значений",
             'street.required' => "Выберите одно из значений",
-            'building_type.required' => "Выберите одно из значений",
+            'buildingType.required' => "Выберите одно из значений",
             'house.required' => 'Заполните это поле.',
             'house.integer' => 'Допустимы только числовые значения.',
             'coordinates.required' => 'Выберите объект на карте'

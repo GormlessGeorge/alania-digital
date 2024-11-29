@@ -1,14 +1,3 @@
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import Controls from "@/Pages/Moderator/Controls.vue";
-import { Head } from '@inertiajs/vue3';
-import Post from "@/Components/Post.vue";
-
-defineProps({
-    posts: Array
-});
-</script>
-
 <template>
     <Head title="Панель управления" />
 
@@ -24,8 +13,20 @@ defineProps({
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <Controls/>
-                <Post v-for="post in posts" :post="post" />
+
+                <ul>
+                    <li v-for="buildingType in buildingTypes">{{buildingType.name}}</li>
+                </ul>
             </div>
         </div>
     </AuthenticatedLayout>
 </template>
+<script setup>
+import Controls from "@/Pages/Moderator/Controls.vue";
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import {Head} from "@inertiajs/vue3";
+
+defineProps({
+   buildingTypes: Array
+});
+</script>

@@ -1,15 +1,18 @@
 <template>
     <ModeratorDashboardLayout>
-        <Post v-for="post in posts" :post="post" />
+        улица
+        {{ street.name }}
     </ModeratorDashboardLayout>
 </template>
 
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
-import Post from "@/Components/Post.vue"
+import ItemList from "@/Components/ItemList.vue";
 
 defineProps({
-    posts: Array
+    street: Object
 });
 
 </script>
+
+

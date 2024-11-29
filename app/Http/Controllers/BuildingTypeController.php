@@ -46,7 +46,10 @@ class BuildingTypeController extends Controller
      */
     public function edit(BuildingType $buildingType)
     {
-        //
+        return inertia(
+            'Moderator/BuildingTypes/Edit',
+            ['buildingType' => $buildingType]
+        );
     }
 
     /**

@@ -46,7 +46,10 @@ class StreetController extends Controller
      */
     public function edit(Street $street)
     {
-        //
+        return inertia(
+            'Moderator/Streets/Edit',
+            ['street' => $street]
+        );
     }
 
     /**

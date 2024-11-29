@@ -1,31 +1,15 @@
 <template>
-    <Head title="Панель управления" />
-
-    <AuthenticatedLayout>
-        <template #header>
-            <h2
-                class="text-xl font-semibold leading-tight text-gray-800"
-            >
-                Модерация
-            </h2>
-        </template>
-
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <Controls/>
-                <ul>
-                    <li v-for="town in towns">{{town.name}}</li>
-                </ul>
-            </div>
-        </div>
-    </AuthenticatedLayout>
+    <ModeratorDashboardLayout>
+        <ItemList link="towns" :items="towns"/>
+    </ModeratorDashboardLayout>
 </template>
+
 <script setup>
-import Controls from "@/Pages/Moderator/Controls.vue";
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import {Head} from "@inertiajs/vue3";
+import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
+import ItemList from "@/Components/ItemList.vue";
 
 defineProps({
-   towns: Array
+    towns: Array,
 });
+
 </script>

@@ -12,15 +12,15 @@ return new class extends Migration {
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('region_id')->constrained();
-            $table->foreignId('town_id')->constrained();
-            $table->foreignId('street_id')->constrained();
-            $table->foreignId('building_type_id')->constrained();
+            $table->foreignId('region_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('town_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('street_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('building_type_id')->nullable()->constrained()->onDelete('set null');
             $table->string('house_number');
             $table->string('building')->nullable();
             $table->decimal('longitude', 10, 7);
             $table->decimal('latitude', 10, 7);
-            $table->enum('status', ['На модерации', 'Опубликован']);
+            $table->enum('status', ['На модерации', 'Опубликовано']);
             $table->timestamps();
         });
     }

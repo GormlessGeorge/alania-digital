@@ -46,7 +46,10 @@ class TownController extends Controller
      */
     public function edit(Town $town)
     {
-        //
+        return inertia(
+            'Moderator/Towns/Edit',
+            ['town' => $town]
+        );
     }
 
     /**

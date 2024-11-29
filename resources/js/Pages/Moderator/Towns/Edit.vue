@@ -1,15 +1,17 @@
 <template>
     <ModeratorDashboardLayout>
-        <Post v-for="post in posts" :post="post" />
+        нас пункт
+        {{ town }}
     </ModeratorDashboardLayout>
 </template>
 
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
-import Post from "@/Components/Post.vue"
 
 defineProps({
-    posts: Array
+    town: Object
 });
 
 </script>
+
+

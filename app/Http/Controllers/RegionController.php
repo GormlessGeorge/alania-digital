@@ -22,7 +22,7 @@ class RegionController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Moderator/Regions/Create');
     }
 
     /**
@@ -30,7 +30,9 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Region::create($request->all());
+
+        return redirect()->route('regions.index');
     }
 
     /**
@@ -46,7 +48,10 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        //
+        return inertia(
+            'Moderator/Regions/Edit',
+            ['region' => $region]
+        );
     }
 
     /**
@@ -62,6 +67,8 @@ class RegionController extends Controller
      */
     public function destroy(Region $region)
     {
-        //
+        $region->delete();
+
+        return redirect()->route('regions.index');
     }
 }

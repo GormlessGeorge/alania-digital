@@ -96,7 +96,6 @@ onMounted(() => {
         }
         const { id } = e.target;
         map.setSelectedObjects([id]);
-        console.log(e);
 
         var lng = e.lngLat[0];
         var lat = e.lngLat[1];
@@ -173,7 +172,7 @@ const form = useForm({
 .button {
     width: 200px;
     height: 50px;
-    background-color: #ae9bca;
+    background-color: #4E5AA4;
     color: white;
     font-weight: bold;
     font-size: 18px;
@@ -190,14 +189,14 @@ const form = useForm({
     color: red;
 }
 
-/* Chrome, Safari, Edge, Opera */
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-/* Firefox */
+
 input[type=number] {
     -moz-appearance: textfield;
 }

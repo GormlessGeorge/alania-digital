@@ -52,17 +52,19 @@ defineProps({
 
 <style scoped lang="scss">
 .main-content {
-    // height: 100vh;
-    background-color: #f8f9fc;
+    padding-bottom: 50px;
+    background-color: #f3f4f6;
 }
 
 .header {
-    padding: 30px;
+    height: 65px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: solid 1px rgb(241, 241, 241);
-    background-color: #f3f3f3;
+    background-color: white;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 
     &__nav-link {
         font-size: 16px;
@@ -72,10 +74,14 @@ defineProps({
 .container {
     width: 1280px;
     margin: 0 auto;
+    padding: 32px;
 }
 
 .main {
-    padding: 70px 0;
+    margin-top: 48px;
+    padding: 30px 30px;
+    border-radius: 8px;
+    background-color: white;
 
     &__title {
         font-size: 28px;

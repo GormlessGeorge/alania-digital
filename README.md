@@ -1,66 +1,78 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Тестовое задание
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Задачи:
 
-## About Laravel
+1. Разработать бэкенд (личный кабинет модератора)
+2. Разработать фронт (форма добавления объекта)
+3. Развернуть проект на тестовом сервере
+4. Прикрутить домен, опционально https
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+___
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Установка
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+___
 
-## Learning Laravel
+1. Клонирование:`git clone https://github.com/GormlessGeorge/alania-digital.git digital`
+2. `cd digital`
+3. Установка Laravel компонентов: `composer install`
+4. Создание копии .env файла: `cp .env.example .env`
+5. В .env прописать необходимые настройки базы данных:
+6. Запуск миграций: `php artisan migrate`
+7. Генерация ключа: `php artisan key:generate`
+8. Установка компонентов Frontend: `npm install`
+9. Запуск сборки: `npm run build`
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Пользователь moderator:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Логин: `moderator@example.com`
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Пароль: `moderator`
 
-## Laravel Sponsors
+Пользователь user:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Логин: `user@example.com`
 
-### Premium Partners
+Пароль: `password`
+___
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Задача 1
 
-## Contributing
+1. Созданы модели (App\Http\Models) : Post, Region, Town, Street, BuildingType
+2. Добавлены необходимые миграции и seeder классы для наполнения БД
+2. Реализован CRUD данных моделей на стороне модератора, а также создание объекта Post на стороне обычного пользователя
+3. Добавлен функционал карты с помощью 2gis API, при клике на объект сохраняются координаты
+4. Добавлен пользователь Moderator, имеющий доступ к модерации при помощи Gate
+5. Добавлены отдельные классы FormRequest для валидации форм
+6. Добавлены Resource-контроллеры для взаимодействия с моделями
+7. Для ресурса Post создат отдельный класс Service
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+___
 
-## Code of Conduct
+## Задача 2
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1. Создана простенькая frontend страничка (Welcome) с формой добавления объекта Post
+2. Все добавленные компоненты, не являющиеся частью Laravel Breeze располагаются в папках: 'Pages/Moderator' и '
+   Components/Custom'
 
-## Security Vulnerabilities
+___
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Задача 3
 
-## License
+На сервер установлены следующие компоненты:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Nginx
+2. MySQL
+3. PHP-FPM
+4. Composer
+5. Node NPM
+6. PHP компоненты:
+   php-xml,
+   php-curl,
+   php-mysql
+7. Let's Encrypt CertBot
+___
+
+## Задача 4
+1. В настройках Nginx прописано доменное имя
+2. Обеспечена работа через протокол https при помощи сертификата от Let's Encrypt

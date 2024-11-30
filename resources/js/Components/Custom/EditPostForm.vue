@@ -9,12 +9,15 @@
                 </select>
             </div>
 
+
             <div class="form__input">
+
                 <label :class="{ error: $page.props.errors.town }">Населённый пункт <span>*</span></label>
                 <select v-model="form.town" name="towns" size="1" id="towns">
                     <option :value="town.id" v-for="town in towns">{{ town.name }}</option>
                 </select>
             </div>
+
 
             <div class="form__input" >
                 <label :class="{ error: $page.props.errors.street }">Улица <span>*</span></label>
@@ -22,6 +25,7 @@
                     <option :value="street.id" v-for="street in streets">{{ street.name }}</option>
                 </select>
             </div>
+
 
             <div class="form__input" >
                 <label :class="{ error: $page.props.errors.buildingType }">Тип здания <span>*</span></label>

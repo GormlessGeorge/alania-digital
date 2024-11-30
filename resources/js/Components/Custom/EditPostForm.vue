@@ -1,12 +1,6 @@
 <template>
-    <form class="form" id="form" @submit.prevent="form.post(route('create-post'))">
-
+    <form class="form" id="form" @submit.prevent="form.patch(route('posts.update', post.id))">
         <div class="form__inputs">
-            <div class="form__info">
-                <p>Шаг 1</p>
-                <p>Заполните необходимые поля:</p>
-            </div>
-
 
             <div class="form__input">
                 <label :class="{ error: $page.props.errors.region }">Регион <span>*</span></label>
@@ -16,21 +10,21 @@
             </div>
 
             <div class="form__input" :class="{ error: $page.props.errors.town }">
-                <label :class="{ error: $page.props.errors.region }">Населённый пункт <span>*</span></label>
+                <label :class="{ error: $page.props.errors.town }">Населённый пункт <span>*</span></label>
                 <select v-model="form.town" name="towns" size="1" id="towns">
                     <option :value="town.id" v-for="town in towns">{{ town.name }}</option>
                 </select>
             </div>
 
             <div class="form__input" :class="{ error: $page.props.errors.street }">
-                <label :class="{ error: $page.props.errors.region }">Улица <span>*</span></label>
+                <label :class="{ error: $page.props.errors.street }">Улица <span>*</span></label>
                 <select v-model="form.street" name="streets" size="1" id="streets">
                     <option :value="street.id" v-for="street in streets">{{ street.name }}</option>
                 </select>
             </div>
 
             <div class="form__input" :class="{ error: $page.props.errors.buildingType }">
-                <label :class="{ error: $page.props.errors.region }">Тип здания <span>*</span></label>
+                <label :class="{ error: $page.props.errors.buildingType }">Тип здания <span>*</span></label>
                 <select v-model="form.buildingType" name="building-types" size="1" id="building-types">
                     <option :value="buildingType.id" v-for="buildingType in buildingTypes">{{ buildingType.name }}
                     </option>
@@ -38,7 +32,7 @@
             </div>
 
             <div class="form__input" :class="{ error: $page.props.errors.houseNumber }">
-                <label :class="{ error: $page.props.errors.region }" for="houseNumber">Дом <span>*</span></label>
+                <label :class="{ error: $page.props.errors.house }" for="houseNumber">Дом <span>*</span></label>
                 <input maxlength="3" v-model="form.houseNumber" name="houseNumber" id="houseNumber"/>
             </div>
 
@@ -46,46 +40,45 @@
                 <label for="building">Корпус</label>
                 <input maxlength="3" v-model="form.building" name="building" id="building"/>
             </div>
-
         </div>
 
 
         <div class="form__map-wrapper">
             <div class="form__info">
                 <p>Шаг 2</p>
-                <p :class="{ error: $page.props.errors.region }">Выберите объект на карте:</p>
+                <p :class="{ error: $page.props.errors.coordinates }">Выберите объект на карте:</p>
             </div>
             <div id="map"></div>
         </div>
 
-
-        <button class="button" type="submit"> Опубликовать</button>
+        <FormButton>Изменить</FormButton>
 
     </form>
 </template>
 
 <script setup>
-import {onMounted} from "vue";
+import FormButton from "@/Components/Custom/FormButton.vue";
 import {useForm} from "@inertiajs/vue3";
-
-defineProps({
+import {onMounted} from "vue";
+const props = defineProps({
+    post: Object,
     regions: Array,
     towns: Array,
     streets: Array,
     buildingTypes: Array
 });
 
-// 2gis
+//2gis
 onMounted(() => {
     const map = new mapgl.Map('map', {
         key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
-        center: [44.674004534474555, 43.02463979351204],
+        center: [Number(props.post.longitude), Number(props.post.latitude)],
         zoom: 15,
     });
 
 
     let marker = new mapgl.Marker(map, {
-        coordinates: [44.67400, 43.02463]
+        coordinates: [Number(props.post.longitude), Number(props.post.latitude)]
     });
 
 
@@ -105,13 +98,13 @@ onMounted(() => {
 });
 
 const form = useForm({
-    region: "",
-    town: "",
-    street: "",
-    buildingType: "",
-    houseNumber: "",
-    building: "",
-    coordinates: []
+    region: props.post.region_id,
+    town: props.post.town_id,
+    street: props.post.street_id,
+    buildingType: props.post.building_type_id,
+    houseNumber: props.post.house_number,
+    building: props.post.building,
+    coordinates: [props.post.longitude, props.post.latitude]
 });
 
 </script>
@@ -123,16 +116,6 @@ const form = useForm({
     flex-direction: column;
     gap: 80px;
 
-
-    &__info {
-        font-size: 16px;
-        color: #797979;
-
-        p:first-child {
-            font-size: 20px;
-            color: #202020;
-        }
-    }
 
     &__inputs {
         margin-top: 20px;

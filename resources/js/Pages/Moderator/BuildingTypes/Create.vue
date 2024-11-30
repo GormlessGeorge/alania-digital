@@ -1,6 +1,6 @@
 <template>
     <ModeratorDashboardLayout>
-        <CreateResourceForm link="/dashboard/moderator/building-types" label="Новый тип здания" />
+        <CreateResourceForm link="building-types.store" label="Новый тип здания" />
     </ModeratorDashboardLayout>
 </template>
 

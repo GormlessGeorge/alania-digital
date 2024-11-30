@@ -1,6 +1,6 @@
 <template>
     <ModeratorDashboardLayout>
-        <CreateResourceForm link="/dashboard/moderator/regions" label="Новый регион" />
+        <CreateResourceForm link="regions.store" label="Новый регион" />
     </ModeratorDashboardLayout>
 </template>
 

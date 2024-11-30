@@ -1,25 +1,29 @@
 <template>
     <div class="post">
-        <p class="post-item">Номер публикации: <span>{{ post.id }}</span></p>
-        <p class="post-item">Регион: <span>{{ post.region.name }}</span></p>
-        <p class="post-item">Нас. пункт: <span>{{ post.town.name }}</span></p>
-        <p class="post-item">Улица: <span>{{ post.street.name }}</span></p>
-        <p class="post-item">Тип здания: <span>{{ post.building_type.name }}</span></p>
-        <p class="post-item">Номер дома: <span>{{ post.house_number }}</span></p>
-        <p class="post-item">Статус: <span>{{ post.status }}</span></p>
+        <p class="post__item">Номер публикации: <span>{{ post.id }}</span></p>
+        <p class="post__item">Регион: <span>{{ getFieldName(post.region) }}</span></p>
+        <p class="post__item">Нас. пункт: <span>{{ getFieldName(post.town) }}</span></p>
+        <p class="post__item">Улица: <span>{{ getFieldName(post.street) }}</span></p>
+        <p class="post__item">Тип здания: <span>{{ getFieldName(post.building_type) }}</span></p>
+        <p class="post__item">Номер дома: <span>{{ post.house_number }}</span></p>
+        <p class="post__item">Статус: <span>{{ post.status }}</span></p>
         <div class="post__buttons">
-            <Link :href="route('posts.show', post.id)">Подробнее</Link>
+            <LinkButton :href="route('posts.show', post.id)">Подробнее</LinkButton>
         </div>
 
     </div>
 </template>
 
 <script setup>
-import {Link} from "@inertiajs/vue3";
+import LinkButton from "@/Components/Custom/LinkButton.vue";
+
 defineProps({
     post: Object
 });
 
+const getFieldName = (field) => {
+    return field ? field.name : 'Нет значений';
+}
 
 </script>
 
@@ -28,16 +32,17 @@ defineProps({
     display: flex;
     flex-direction: column;
     gap: 10px;
-    width: 400px;
+    width: 300px;
     height: fit-content;
     padding: 30px;
     border-radius: 10px;
     background: #fafafa;
 
 
-    &-item {
+    &__item {
         font-weight: 600;
         color: #A0AEC0;
+
         span {
             color: #4E5AA4;
             font-weight: 600;

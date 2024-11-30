@@ -1,6 +1,6 @@
 <template>
     <ModeratorDashboardLayout>
-        <CreateResourceForm link="/dashboard/moderator/streets" label="Новая улица" />
+        <CreateResourceForm link="streets.store" label="Новая улица" />
     </ModeratorDashboardLayout>
 </template>
 

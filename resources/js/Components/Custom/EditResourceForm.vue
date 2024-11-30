@@ -1,13 +1,16 @@
 <template>
     <form @submit.prevent="form.patch(link)">
-        <label>{{ label }}</label>
-        <input v-model="form.name"/>
-        <button type="submit">Изменить</button>
+        <label :class="{ error: $page.props.errors.name }">{{ label }}</label>
+        <input v-model="form.name" />
+        <p class="error" v-if="$page.props.errors.name">{{$page.props.errors.name}}</p>
+        <FormButton type="submit">Добавить</FormButton>
     </form>
 </template>
 
 <script setup>
 import {useForm} from "@inertiajs/vue3";
+import TheButton from "@/Components/Custom/LinkButton.vue";
+import FormButton from "@/Components/Custom/FormButton.vue";
 
 const props = defineProps({
     link: String,
@@ -44,6 +47,9 @@ form {
         font-weight: bold;
         font-size: 18px;
     }
+}
+.error {
+    color: red;
 }
 </style>
 

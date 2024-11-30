@@ -35,7 +35,7 @@
 
 <script setup>
 import {Head, Link} from '@inertiajs/vue3';
-import Form from "@/Components/Custom/Form.vue";
+import Form from "@/Components/Custom/CreatePostForm.vue";
 
 defineProps({
     canLogin: Boolean,

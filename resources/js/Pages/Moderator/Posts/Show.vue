@@ -3,22 +3,22 @@
         <div class="wrapper">
             <div class="post">
                 <p class="post__item">Номер публикации: <span>{{ post.id }}</span></p>
-                <p class="post__item">Регион: <span>{{ post.region.name }}</span></p>
-                <p class="post__item">Нас. пункт: <span>{{ post.town.name }}</span></p>
-                <p class="post__item">Улица: <span>{{ post.street.name }}</span></p>
-                <p class="post__item">Тип здания: <span>{{ post.building_type.name }}</span></p>
+                <p class="post__item">Регион: <span>{{ getFieldName(post.region) }}</span></p>
+                <p class="post__item">Нас. пункт: <span>{{ getFieldName(post.town) }}</span></p>
+                <p class="post__item">Улица: <span>{{ getFieldName(post.street) }}</span></p>
+                <p class="post__item">Тип здания: <span>{{ getFieldName(post.building_type) }}</span></p>
                 <p class="post__item">Номер дома: <span>{{ post.house_number }}</span></p>
                 <p class="post__item">Корпус: <span>{{ post.building == null? 'Не указан' : post.building }}</span></p>
                 <p class="post__item">Долгота: <span>{{ post.longitude }}</span></p>
                 <p class="post__item">Широта: <span>{{ post.latitude }}</span></p>
                 <p class="post__item">Статус: <span>{{ post.status }}</span></p>
                 <div class="post__buttons">
-                    <TheButton v-on:click="publish(post.id)">Опубликовать</TheButton>
+                    <LinkButton v-if="post.status == 'На модерации'" :href="route('posts.publish', post.id)" method="PATCH">Опубликовать</LinkButton>
+                    <LinkButton v-else :href="route('posts.set-to-moderation', post.id)" method="PATCH">Снять с публ.</LinkButton>
                     <div class="post__item-links">
                         <Link :href="route('posts.edit', post.id)"><img src="/icons/edit.svg"></Link>
                         <Link :href="route('posts.destroy', post)" method="DELETE" as="button"><img src="/icons/bin.svg"></Link>
                     </div>
-<!--                    <Link :href="route('posts.show', post.id)">Изменить</Link>-->
                 </div>
             </div>
 
@@ -33,17 +33,20 @@
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
 import {Link, router} from "@inertiajs/vue3";
 import {onMounted} from "vue";
-import TheButton from "@/Components/Custom/TheButton.vue";
+import LinkButton from "@/Components/Custom/LinkButton.vue";
 
 const props = defineProps({
     post: Object
 });
 
+const getFieldName = (field) => {
+    return field ? field.name : 'Нет значений';
+}
 // 2gis
 onMounted(() => {
     const map = new mapgl.Map('post-map', {
         key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
-        center: [44.674004534474555, 43.02463979351204],
+        center: [Number(props.post.longitude), Number(props.post.latitude)],
         zoom: 17,
     });
 
@@ -56,6 +59,13 @@ onMounted(() => {
 
 function publish(postId) {
     router.visit(`/posts/${postId}/publish`,
+        {
+            method: "patch",
+            preserveScroll: true
+        });
+}
+function setToModeration(postId) {
+    router.visit(`/posts/${postId}/set-to-moderation`,
         {
             method: "patch",
             preserveScroll: true

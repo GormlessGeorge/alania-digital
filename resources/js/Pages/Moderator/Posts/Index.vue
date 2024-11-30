@@ -8,8 +8,7 @@
 
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
-import ItemList from "@/Components/Custom/ItemList.vue";
-import {Link} from "@inertiajs/vue3";
+
 import Post from "@/Components/Custom/Post.vue";
 
 defineProps({
@@ -23,6 +22,7 @@ defineProps({
 .wrapper {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
 }
 </style>

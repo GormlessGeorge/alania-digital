@@ -33,6 +33,8 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user() ? $request->user()->only(['name', 'is_moderator']) : null
+            ],'flash' => [
+                'message' => fn () => $request->session()->get('success')
             ],
         ];
     }

@@ -1,16 +1,20 @@
 <template>
     <ModeratorDashboardLayout>
-      <Form></Form>
+        <EditPostForm :post="post" :regions="regions" :towns="towns" :streets="streets"
+                      :buildingTypes="buildingTypes"></EditPostForm>
     </ModeratorDashboardLayout>
 </template>
 
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
-import EditResourceForm from "@/Components/Custom/EditResourceForm.vue";
-import Form from "@/Components/Custom/Form.vue";
+import EditPostForm from "@/Components/Custom/EditPostForm.vue";
 
 defineProps({
-    post: Object
+    post: Object,
+    regions: Array,
+    towns: Array,
+    streets: Array,
+    buildingTypes: Array
 });
 
 </script>

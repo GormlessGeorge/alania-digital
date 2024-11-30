@@ -11,7 +11,7 @@ class StreetRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('is-moderator');
     }
     /**
      * Get the validation rules that apply to the request.
@@ -22,6 +22,13 @@ class StreetRequest extends FormRequest
     {
         return [
             'name' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => "Необходимо заполнить поле",
         ];
     }
 }

@@ -11,7 +11,7 @@ class TownRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('is-moderator');
     }
 
     /**
@@ -23,6 +23,13 @@ class TownRequest extends FormRequest
     {
         return [
             'name' => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => "Необходимо заполнить поле",
         ];
     }
 }

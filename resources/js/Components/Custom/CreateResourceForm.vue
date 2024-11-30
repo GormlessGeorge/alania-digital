@@ -1,13 +1,15 @@
 <template>
-    <form @submit.prevent="form.post(link)">
-        <label :class="{ error: $page.props.errors }">{{ label }}</label>
-        <input v-model="form.name" :class="{ error: $page.props.errors }"/>
-        <button type="submit">Добавить</button>
+    <form @submit.prevent="form.post(route(link))">
+        <label :class="{ error: $page.props.errors.name }">{{ label }}</label>
+        <input v-model="form.name" />
+        <p class="error" v-if="$page.props.errors.name">{{$page.props.errors.name}}</p>
+        <FormButton>Добавить</FormButton>
     </form>
 </template>
 
 <script setup>
 import {useForm} from "@inertiajs/vue3";
+import FormButton from "@/Components/Custom/FormButton.vue";
 
 defineProps({
     link: String,

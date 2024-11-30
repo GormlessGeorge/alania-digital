@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use App\Models\BuildingType;
 use App\Models\Post;
 use App\Models\Region;
@@ -47,7 +48,7 @@ class PostController extends Controller
         $postService = new PostService();
         $postService->store($request->validated());
 
-        return redirect()->back()->with('success', 'Post created successfully');
+        return redirect()->back()->with('success', 'Спасибо, пост отправлен на модерацию!');
     }
 
     /**
@@ -67,18 +68,24 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return Inertia::render(
-            'Moderator/Posts/Edit',
-            ['post' => $post]
-        );
+        return Inertia::render('Moderator/Posts/Edit',
+            ['post' => $post,
+            'regions' => Region::all(),
+            'towns' => Town::all(),
+            'streets' => Street::all(),
+            'buildingTypes' => BuildingType::all()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $postService = new PostService();
+        $validated = $request->validated();
+        $postService->update($post, $validated);
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -90,10 +97,18 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
+
     public function publish($id)
     {
         $post = Post::findOrFail($id);
         $post->status = 'Опубликовано';
+        $post->save();
+    }
+
+    public function setToModeration($id)
+    {
+        $post = Post::findOrFail($id);
+        $post->status = 'На модерации';
         $post->save();
     }
 }

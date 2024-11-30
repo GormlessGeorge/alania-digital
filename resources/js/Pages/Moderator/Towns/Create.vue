@@ -1,6 +1,6 @@
 <template>
     <ModeratorDashboardLayout>
-        <CreateResourceForm link="/dashboard/moderator/towns" label="Новый насёленный пункт" />
+        <CreateResourceForm link="towns.store" label="Новый насёленный пункт" />
     </ModeratorDashboardLayout>
 </template>
 

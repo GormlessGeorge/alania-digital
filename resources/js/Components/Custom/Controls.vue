@@ -2,24 +2,24 @@
     <nav class="nav">
 
         <NavLink :href="route('posts.index')"
-                 :active="route().current('posts.index') || route().current('moderator.*')">Публикации
+                 :active="route().current('posts.*') || route().current('moderator.*')">Публикации
         </NavLink>
 
         <p>|</p>
         <NavLink :href="route('regions.index')"
-                 :active="route().current('regions.index')">Регионы
+                 :active="route().current('regions.*')">Регионы
         </NavLink>
 
         <NavLink :href="route('towns.index')"
-                 :active="route().current('towns.index')">Населённые пункты
+                 :active="route().current('towns.*')">Населённые пункты
         </NavLink>
 
         <NavLink :href="route('streets.index')"
-                 :active="route().current('streets.index')">Улицы
+                 :active="route().current('streets.*')">Улицы
         </NavLink>
 
         <NavLink :href="route('building-types.index')"
-                 :active="route().current('building-types.index')">Типы зданий
+                 :active="route().current('building-types.*')">Типы зданий
         </NavLink>
 
     </nav>
@@ -38,6 +38,7 @@ import NavLink from "@/Components/NavLink.vue";
     gap: 30px;
 
     p {
+        cursor: default;
         font-size: 14px;
         align-self: center;
         color: #A0AEC0;

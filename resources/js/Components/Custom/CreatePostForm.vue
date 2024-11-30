@@ -1,5 +1,5 @@
 <template>
-    <form class="form" id="form" @submit.prevent="form.post(route('create-post'))">
+    <form class="form" id="form" @submit.prevent="form.post(route('create-post'), {preserveScroll:true})">
 
         <div class="form__inputs">
             <div class="form__info">
@@ -15,30 +15,30 @@
                 </select>
             </div>
 
-            <div class="form__input" :class="{ error: $page.props.errors.town }">
-                <label :class="{ error: $page.props.errors.region }">Населённый пункт <span>*</span></label>
+            <div class="form__input">
+                <label :class="{ error: $page.props.errors.town }">Населённый пункт <span>*</span></label>
                 <select v-model="form.town" name="towns" size="1" id="towns">
                     <option :value="town.id" v-for="town in towns">{{ town.name }}</option>
                 </select>
             </div>
 
-            <div class="form__input" :class="{ error: $page.props.errors.street }">
-                <label :class="{ error: $page.props.errors.region }">Улица <span>*</span></label>
+            <div class="form__input">
+                <label :class="{ error: $page.props.errors.street }">Улица <span>*</span></label>
                 <select v-model="form.street" name="streets" size="1" id="streets">
                     <option :value="street.id" v-for="street in streets">{{ street.name }}</option>
                 </select>
             </div>
 
-            <div class="form__input" :class="{ error: $page.props.errors.buildingType }">
-                <label :class="{ error: $page.props.errors.region }">Тип здания <span>*</span></label>
+            <div class="form__input">
+                <label :class="{ error: $page.props.errors.buildingType }">Тип здания <span>*</span></label>
                 <select v-model="form.buildingType" name="building-types" size="1" id="building-types">
                     <option :value="buildingType.id" v-for="buildingType in buildingTypes">{{ buildingType.name }}
                     </option>
                 </select>
             </div>
 
-            <div class="form__input" :class="{ error: $page.props.errors.houseNumber }">
-                <label :class="{ error: $page.props.errors.region }" for="houseNumber">Дом <span>*</span></label>
+            <div class="form__input">
+                <label :class="{ error: $page.props.errors.houseNumber }" for="houseNumber">Дом <span>*</span></label>
                 <input maxlength="3" v-model="form.houseNumber" name="houseNumber" id="houseNumber"/>
             </div>
 
@@ -53,13 +53,16 @@
         <div class="form__map-wrapper">
             <div class="form__info">
                 <p>Шаг 2</p>
-                <p :class="{ error: $page.props.errors.region }">Выберите объект на карте:</p>
+                <p :class="{ error: $page.props.errors.coordinates }">Выберите объект на карте:</p>
             </div>
             <div id="map"></div>
+
         </div>
 
-
-        <button class="button" type="submit"> Опубликовать</button>
+        <div v-if="$page.props.flash.message" class="success">
+            {{ $page.props.flash.message }}
+        </div>
+        <FormButton>Опубликовать</FormButton>
 
     </form>
 </template>
@@ -67,6 +70,7 @@
 <script setup>
 import {onMounted} from "vue";
 import {useForm} from "@inertiajs/vue3";
+import FormButton from "@/Components/Custom/FormButton.vue";
 
 defineProps({
     regions: Array,
@@ -170,14 +174,6 @@ const form = useForm({
     }
 }
 
-.button {
-    width: 200px;
-    height: 50px;
-    background-color: #4E5AA4;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-}
 
 #map {
     margin-top: 20px;
@@ -187,6 +183,9 @@ const form = useForm({
 
 .error {
     color: red;
+}
+.success {
+    color: green;
 }
 
 

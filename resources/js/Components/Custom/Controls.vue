@@ -1,26 +1,8 @@
-<script setup>
-import NavLink from "@/Components/NavLink.vue";
-</script>
-
-<style scoped lang="scss">
-.nav {
-    display: flex;
-    flex-direction: row;
-    gap: 30px;
-    p {
-        font-size: 14px;
-        align-self: center;
-        color: #A0AEC0;
-    }
-}
-</style>
-
-
 <template>
     <nav class="nav">
 
-        <NavLink :href="route('moderator.dashboard')"
-                 :active="route().current('moderator.dashboard')">Публикации
+        <NavLink :href="route('posts.index')"
+                 :active="route().current('posts.index') || route().current('moderator.*')">Публикации
         </NavLink>
 
         <p>|</p>
@@ -44,3 +26,21 @@ import NavLink from "@/Components/NavLink.vue";
 
 </template>
 
+<script setup>
+import NavLink from "@/Components/NavLink.vue";
+</script>
+
+
+<style scoped lang="scss">
+.nav {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+
+    p {
+        font-size: 14px;
+        align-self: center;
+        color: #A0AEC0;
+    }
+}
+</style>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BuildingTypeRequest;
 use App\Models\BuildingType;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,15 +23,16 @@ class BuildingTypeController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Moderator/BuildingTypes/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BuildingTypeRequest $request)
     {
-        //
+        BuildingType::create($request->validated());
+        return redirect()->route('building-types.index');
     }
 
     /**
@@ -46,7 +48,7 @@ class BuildingTypeController extends Controller
      */
     public function edit(BuildingType $buildingType)
     {
-        return inertia(
+        return Inertia::render(
             'Moderator/BuildingTypes/Edit',
             ['buildingType' => $buildingType]
         );
@@ -55,9 +57,10 @@ class BuildingTypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, BuildingType $buildingType)
+    public function update(BuildingTypeRequest $request, BuildingType $buildingType)
     {
-        //
+        $buildingType->update($request->validated());
+        return redirect()->route('building-types.index');
     }
 
     /**
@@ -65,6 +68,7 @@ class BuildingTypeController extends Controller
      */
     public function destroy(BuildingType $buildingType)
     {
-        //
+        $buildingType->delete();
+        return redirect()->route('building-types.index');
     }
 }

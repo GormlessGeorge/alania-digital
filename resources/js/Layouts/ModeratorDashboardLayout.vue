@@ -24,8 +24,9 @@
         </div>
     </AuthenticatedLayout>
 </template>
+
 <script setup>
-import Controls from "@/Pages/Moderator/Controls.vue";
+import Controls from "@/Components/Custom/Controls.vue";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import {Head} from "@inertiajs/vue3";
 

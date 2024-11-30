@@ -13,6 +13,7 @@ use Inertia\Inertia;
 
 Route::get('/', [PostController::class, 'create'])->name('home');
 Route::post('/create-post', [PostController::class, 'store'])->name('create-post');
+
 Route::patch('/posts/{id}/publish', [PostController::class, 'publish']);
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -26,7 +27,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'can:is-moderator'])->group(function () {
     Route::get('/dashboard/moderator', [PostController::class, 'index'])->name('moderator.dashboard');
-//    Route::resource('/dashboard/moderator/posts', PostController::class)->except('index', 'store');
+    Route::resource('/dashboard/moderator/posts', PostController::class)->except('store');
     Route::resource('/dashboard/moderator/regions', RegionController::class);
     Route::resource('/dashboard/moderator/towns', TownController::class);
     Route::resource('/dashboard/moderator/streets', StreetController::class);

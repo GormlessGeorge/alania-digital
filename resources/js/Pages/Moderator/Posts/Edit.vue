@@ -1,15 +1,17 @@
 <template>
     <ModeratorDashboardLayout>
-        <Post v-for="post in posts" :post="post" />
+      <Form></Form>
     </ModeratorDashboardLayout>
 </template>
 
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
-import Post from "@/Components/Post.vue"
+import EditResourceForm from "@/Components/Custom/EditResourceForm.vue";
+import Form from "@/Components/Custom/Form.vue";
 
 defineProps({
-    posts: Array
+    post: Object
 });
 
 </script>
+

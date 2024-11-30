@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TownRequest;
 use App\Models\Town;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,15 +23,17 @@ class TownController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Moderator/Towns/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(TownRequest $request)
     {
-        //
+        Town::create($request->validated());
+
+        return redirect()->route('towns.index');
     }
 
     /**
@@ -46,7 +49,7 @@ class TownController extends Controller
      */
     public function edit(Town $town)
     {
-        return inertia(
+        return Inertia::render(
             'Moderator/Towns/Edit',
             ['town' => $town]
         );
@@ -55,9 +58,10 @@ class TownController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Town $town)
+    public function update(TownRequest $request, Town $town)
     {
-        //
+        $town->update($request->validated());
+        return redirect()->route('towns.index');
     }
 
     /**
@@ -65,6 +69,8 @@ class TownController extends Controller
      */
     public function destroy(Town $town)
     {
-        //
+        $town->delete();
+
+        return redirect()->route('towns.index');
     }
 }

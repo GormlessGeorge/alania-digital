@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StreetRequest;
 use App\Models\Street;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -22,15 +23,17 @@ class StreetController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Moderator/Streets/Create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StreetRequest $request)
     {
-        //
+        Street::create($request->validated());
+
+        return redirect()->route('streets.index');
     }
 
     /**
@@ -46,7 +49,7 @@ class StreetController extends Controller
      */
     public function edit(Street $street)
     {
-        return inertia(
+        return Inertia::render(
             'Moderator/Streets/Edit',
             ['street' => $street]
         );
@@ -55,9 +58,10 @@ class StreetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Street $street)
+    public function update(StreetRequest $request, Street $street)
     {
-        //
+        $street->update($request->validated());
+        return redirect()->route('streets.index');
     }
 
     /**
@@ -65,6 +69,7 @@ class StreetController extends Controller
      */
     public function destroy(Street $street)
     {
-        //
+        $street->delete();
+        return redirect()->route('streets.index');
     }
 }

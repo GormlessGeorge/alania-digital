@@ -1,12 +1,3 @@
-<script setup>
-import {Link} from "@inertiajs/vue3";
-const props = defineProps({
-    items: Array,
-    link: String
-});
-
-</script>
-
 <template>
     <ul class="list">
         <li class="list__item" v-for="item in items">
@@ -20,6 +11,16 @@ const props = defineProps({
         </li>
     </ul>
 </template>
+
+<script setup>
+import {Link} from "@inertiajs/vue3";
+const props = defineProps({
+    items: Array,
+    link: String
+});
+
+</script>
+
 
 <style scoped lang="scss">
 .list {
@@ -38,8 +39,8 @@ const props = defineProps({
         padding: 10px;
         border-radius: 8px;
         background-color: white;
-        box-shadow:  20px 20px 20px #d5d5d5,
-        -20px -20px 20px #ffffff;
+        box-shadow:  10px 10px 20px #d5d5d5,
+        -10px -10px 20px #ffffff;
 
         &-name {
 

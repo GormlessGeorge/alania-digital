@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Moderator/Dashboard',
+        return Inertia::render('Moderator/Posts/Index',
             ['posts' => Post::with(['region', 'town', 'street', 'building_type'])->get()]);
     }
 
@@ -44,12 +44,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-
         $postService = new PostService();
         $postService->store($request->validated());
-//
+
         return redirect()->back()->with('success', 'Post created successfully');
-//        dd($request);
     }
 
     /**
@@ -57,7 +55,11 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post->load(['region', 'town', 'street', 'building_type']);
+        return Inertia::render(
+            'Moderator/Posts/Show',
+            ['post' => $post]
+        );
     }
 
     /**
@@ -65,7 +67,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return Inertia::render(
+            'Moderator/Posts/Edit',
+            ['post' => $post]
+        );
     }
 
     /**
@@ -81,12 +86,14 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 
-    public function publish($id) {
+    public function publish($id)
+    {
         $post = Post::findOrFail($id);
-        $post->status = 'Опубликован';
+        $post->status = 'Опубликовано';
         $post->save();
     }
 }

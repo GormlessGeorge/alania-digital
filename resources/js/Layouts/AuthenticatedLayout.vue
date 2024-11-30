@@ -45,8 +45,8 @@ const showingNavigationDropdown = ref(false);
                                 </NavLink>
                                 <NavLink
                                     v-if="$page.props.auth.user.is_moderator"
-                                    :href="route('moderator.dashboard')"
-                                    :active="route().current('moderator.*') ||
+                                    :href="route('posts.index')"
+                                    :active="route().current('posts.*') ||
                                     route().current('towns.*') ||
                                     route().current('regions.*')||
                                     route().current('streets.*') ||

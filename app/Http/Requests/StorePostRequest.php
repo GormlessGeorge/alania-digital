@@ -21,12 +21,14 @@ class StorePostRequest extends FormRequest
      */
     public function rules(): array
     {
+
         return [
-            'region' => 'required',
-            'town' => 'required',
-            'street' => 'required',
-            'buildingType' => 'required',
-            'house' => ['required', 'integer'],
+            'region' => ['required'],
+            'town' => ['required'],
+            'street' => ['required'],
+            'buildingType' => ['required'],
+            'houseNumber' => ['required'],
+            'building' => ['nullable'],
             'coordinates' => ['required']
         ];
     }
@@ -38,8 +40,7 @@ class StorePostRequest extends FormRequest
             'town.required' => "Выберите одно из значений",
             'street.required' => "Выберите одно из значений",
             'buildingType.required' => "Выберите одно из значений",
-            'house.required' => 'Заполните это поле.',
-            'house.integer' => 'Допустимы только числовые значения.',
+            'houseNumber.required' => 'Заполните это поле.',
             'coordinates.required' => 'Выберите объект на карте'
         ];
     }

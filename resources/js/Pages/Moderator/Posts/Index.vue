@@ -1,7 +1,8 @@
 <template>
     <ModeratorDashboardLayout>
-        <Link class="link-add" :href="route('regions.create')">+ Добавить</Link>
-        <ItemList link="regions" :items="regions"/>
+        <div class="wrapper">
+            <Post v-for="post in posts" :post="post" />
+        </div>
     </ModeratorDashboardLayout>
 </template>
 
@@ -9,17 +10,19 @@
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
 import ItemList from "@/Components/Custom/ItemList.vue";
 import {Link} from "@inertiajs/vue3";
+import Post from "@/Components/Custom/Post.vue";
 
 defineProps({
-    regions: Array,
+    posts: Array
 });
 
 </script>
 
 
 <style scoped lang="scss">
-.link-add {
-    color: #4E5AA4;
-    font-weight: 600;
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
 }
 </style>

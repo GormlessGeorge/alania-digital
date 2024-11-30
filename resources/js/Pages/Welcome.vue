@@ -2,7 +2,7 @@
 
     <Head title="Welcome"/>
 
-    <section class="main-content">
+    <section class="home-section">
         <header class="header">
             <div class="header__logo">
                 <img src="/icons/alania-digital_mobile-1.svg" alt="app_logo">
@@ -12,15 +12,14 @@
                     Личный кабинет
                 </Link>
 
-                <template v-else>
+                <div class="links" v-else>
                     <Link :href="route('login')" class="header__nav-link">
                         Войти
                     </Link>
-
                     <Link v-if="canRegister" :href="route('register')" class="header__nav-link">
                         Регистрация
                     </Link>
-                </template>
+                </div>
             </nav>
         </header>
 
@@ -36,7 +35,7 @@
 
 <script setup>
 import {Head, Link} from '@inertiajs/vue3';
-import Form from "@/Components/Form.vue";
+import Form from "@/Components/Custom/Form.vue";
 
 defineProps({
     canLogin: Boolean,
@@ -51,7 +50,7 @@ defineProps({
 </script>
 
 <style scoped lang="scss">
-.main-content {
+.home-section {
     padding-bottom: 50px;
     background-color: #f3f4f6;
 }
@@ -88,5 +87,6 @@ defineProps({
     }
 
 }
+
 
 </style>

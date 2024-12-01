@@ -68,7 +68,7 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
+import {onMounted, onUnmounted} from "vue";
 import {useForm} from "@inertiajs/vue3";
 import FormButton from "@/Components/Custom/FormButton.vue";
 
@@ -80,8 +80,9 @@ defineProps({
 });
 
 // 2gis
+let map;
 onMounted(() => {
-    const map = new mapgl.Map('map', {
+    map = new mapgl.Map('map', {
         key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
         center: [44.674004534474555, 43.02463979351204],
         zoom: 15,
@@ -106,6 +107,12 @@ onMounted(() => {
         marker.setCoordinates([lng, lat]);
         form.coordinates = e.lngLat;
     });
+});
+
+onUnmounted(() => {
+    if (map) {
+        map.destroy();
+    }
 });
 
 const form = useForm({
@@ -184,6 +191,7 @@ const form = useForm({
 .error {
     color: red;
 }
+
 .success {
     color: green;
 }

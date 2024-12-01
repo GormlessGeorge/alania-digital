@@ -16,8 +16,12 @@
                     <LinkButton v-if="post.status == 'На модерации'" :href="route('posts.publish', post.id)" method="PATCH">Опубликовать</LinkButton>
                     <LinkButton v-else :href="route('posts.set-to-moderation', post.id)" method="PATCH">Снять с публ.</LinkButton>
                     <div class="post__item-links">
-                        <Link :href="route('posts.edit', post.id)"><img src="/icons/edit.svg"></Link>
-                        <Link :href="route('posts.destroy', post)" method="DELETE" as="button"><img src="/icons/bin.svg"></Link>
+                        <Link :href="route('posts.edit', post.id)">
+                            <img src="/icons/edit.svg">
+                        </Link>
+                        <Link :href="route('posts.destroy', post)" method="DELETE" as="button">
+                            <img src="/icons/bin.svg">
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -32,7 +36,7 @@
 <script setup>
 import ModeratorDashboardLayout from "@/Layouts/ModeratorDashboardLayout.vue";
 import {Link, router} from "@inertiajs/vue3";
-import {onMounted} from "vue";
+import {onMounted, onUnmounted} from "vue";
 import LinkButton from "@/Components/Custom/LinkButton.vue";
 
 const props = defineProps({
@@ -43,8 +47,10 @@ const getFieldName = (field) => {
     return field ? field.name : 'Нет значений';
 }
 // 2gis
+let map;
+
 onMounted(() => {
-    const map = new mapgl.Map('post-map', {
+    map = new mapgl.Map('post-map', {
         key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
         center: [Number(props.post.longitude), Number(props.post.latitude)],
         zoom: 17,
@@ -57,20 +63,13 @@ onMounted(() => {
 
 });
 
-function publish(postId) {
-    router.visit(`/posts/${postId}/publish`,
-        {
-            method: "patch",
-            preserveScroll: true
-        });
-}
-function setToModeration(postId) {
-    router.visit(`/posts/${postId}/set-to-moderation`,
-        {
-            method: "patch",
-            preserveScroll: true
-        });
-}
+
+onUnmounted(() => {
+    if (map) {
+        map.destroy();
+    }
+});
+
 </script>
 
 <style scoped lang="scss">

@@ -20,7 +20,7 @@
             </div>
 
 
-            <div class="form__input" >
+            <div class="form__input">
                 <label :class="{ error: $page.props.errors.street }">Улица <span>*</span></label>
                 <select v-model="form.street" name="streets" size="1" id="streets">
                     <option :value="street.id" v-for="street in streets">{{ street.name }}</option>
@@ -28,7 +28,7 @@
             </div>
 
 
-            <div class="form__input" >
+            <div class="form__input">
                 <label :class="{ error: $page.props.errors.buildingType }">Тип здания <span>*</span></label>
                 <select v-model="form.buildingType" name="building-types" size="1" id="building-types">
                     <option :value="buildingType.id" v-for="buildingType in buildingTypes">{{ buildingType.name }}
@@ -64,7 +64,8 @@
 <script setup>
 import FormButton from "@/Components/Custom/FormButton.vue";
 import {useForm} from "@inertiajs/vue3";
-import {onMounted} from "vue";
+import {onMounted, onUnmounted} from "vue";
+
 const props = defineProps({
     post: Object,
     regions: Array,
@@ -73,34 +74,42 @@ const props = defineProps({
     buildingTypes: Array
 });
 
-//2gis
+let map;
+
 onMounted(() => {
-    const map = new mapgl.Map('map', {
-        key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
-        center: [Number(props.post.longitude), Number(props.post.latitude)],
-        zoom: 15,
-    });
+    map = new mapgl.Map('map',
+        {
+            key: '3ad80c1b-cd17-4b37-a39c-02623534a763',
+            center: [Number(props.post.longitude), Number(props.post.latitude)],
+            zoom: 15,
+        });
 
-
-    let marker = new mapgl.Marker(map, {
-        coordinates: [Number(props.post.longitude), Number(props.post.latitude)]
-    });
-
+    let marker = new mapgl.Marker(map,
+        {
+            coordinates: [Number(props.post.longitude), Number(props.post.latitude)]
+        });
 
     map.on('click', (e) => {
         if (!e.target) {
             return;
         }
+
         const {id} = e.target;
         map.setSelectedObjects([id]);
-
         var lng = e.lngLat[0];
         var lat = e.lngLat[1];
-
         marker.setCoordinates([lng, lat]);
         form.coordinates = e.lngLat;
     });
 });
+
+onUnmounted(() => {
+    if (map) {
+        map.destroy();
+        console.log('called');
+    }
+});
+
 
 const form = useForm({
     region: props.post.region.id,

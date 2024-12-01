@@ -1,5 +1,6 @@
 <template>
     <form class="form" id="form" @submit.prevent="form.patch(route('posts.update', post.id))">
+
         <div class="form__inputs">
 
             <div class="form__input">
@@ -102,11 +103,11 @@ onMounted(() => {
 });
 
 const form = useForm({
-    region: props.post.region_id,
-    town: props.post.town_id,
-    street: props.post.street_id,
-    buildingType: props.post.building_type_id,
-    houseNumber: props.post.house_number,
+    region: props.post.region.id,
+    town: props.post.town.id,
+    street: props.post.street.id,
+    buildingType: props.post.buildingType.id,
+    houseNumber: props.post.houseNumber,
     building: props.post.building,
     coordinates: [props.post.longitude, props.post.latitude]
 });

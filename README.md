@@ -18,10 +18,11 @@ ___
 3. Установка Laravel компонентов: `composer install`
 4. Создание копии .env файла: `cp .env.example .env`
 5. В .env прописать необходимые настройки базы данных:
-6. Запуск миграций: `php artisan migrate`
+6. Запуск миграций и seeder-классов: `php artisan migrate:fresh --seed`
 7. Генерация ключа: `php artisan key:generate`
 8. Установка компонентов Frontend: `npm install`
 9. Запуск сборки: `npm run build`
+10. Запуск локального сервера: `php artisan serve`
 
 Пользователь moderator:
 
